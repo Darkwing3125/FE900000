@@ -56,7 +56,7 @@ let ComplexityGenerator = function (i) {
       }
     },
     perSecond() {
-      return (i < 8) ? ComplexityGenerator(i + 1).productionPerSecond() : new Decimal(0);
+      return (i < 9) ? ComplexityGenerator(i + 1).productionPerSecond() : new Decimal(0);
     },
     isVisible() {
       return i <= player.highestComplexityGenerator + 1 || Options.actualViewAllGenerators('complexity');
@@ -104,7 +104,7 @@ let ComplexityGenerator = function (i) {
 }
 
 let ComplexityGenerators = {
-  list: [...Array(8)].map((_, i) => ComplexityGenerator(i + 1)),
+  list: [...Array(9)].map((_, i) => ComplexityGenerator(i + 1)),
   get: function (x) {
     return this.list[x - 1];
   },
