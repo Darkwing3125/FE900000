@@ -1,21 +1,21 @@
 function initialGenerators() {
-  return [...Array(8)].map(_ => ({amount: new Decimal(0), bought: 0}));
+  return [...Array(9)].map(_ => ({amount: new Decimal(0), bought: 0}));
 }
 
 function initialInfinityGenerators() {
-  return [...Array(8)].map(_ => ({amount: new Decimal(0), bought: 0}));
+  return [...Array(9)].map(_ => ({amount: new Decimal(0), bought: 0}));
 }
 
 function initialEternityGenerators() {
-  return [...Array(8)].map(_ => ({amount: new Decimal(0), bought: 0}));
+  return [...Array(9)].map(_ => ({amount: new Decimal(0), bought: 0}));
 }
 
 function initialComplexityGenerators() {
-  return [...Array(8)].map(_ => ({amount: new Decimal(0), bought: 0}));
+  return [...Array(9)].map(_ => ({amount: new Decimal(0), bought: 0}));
 }
 
 function initialFinalityGenerators() {
-  return [...Array(8)].map(_ => ({amount: new Decimal(0), bought: 0}));
+  return [...Array(9)].map(_ => ({amount: new Decimal(0), bought: 0}));
 }
 
 function initialAutobuyers() {
