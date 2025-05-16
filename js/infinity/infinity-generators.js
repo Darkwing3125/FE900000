@@ -67,7 +67,7 @@ let InfinityGenerator = function (i) {
       }
     },
     perSecond() {
-      return (i < 8) ? InfinityGenerator(i + 1).productionPerSecond() : new Decimal(0);
+      return (i < 9) ? InfinityGenerator(i + 1).productionPerSecond() : new Decimal(0);
     },
     isVisible() {
       return i <= player.highestInfinityGenerator + 1 || Options.actualViewAllGenerators('infinity');
@@ -115,7 +115,7 @@ let InfinityGenerator = function (i) {
 }
 
 let InfinityGenerators = {
-  list: [...Array(8)].map((_, i) => InfinityGenerator(i + 1)),
+  list: [...Array(9)].map((_, i) => InfinityGenerator(i + 1)),
   get: function (x) {
     return this.list[x - 1];
   },
