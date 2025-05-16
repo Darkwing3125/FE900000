@@ -21,7 +21,7 @@ let EternityMaxAll = {
         Studies.buyMax(i);
       }
     }
-    generalMaxAll(types.filter(x => x > 16).map(x => PermanenceUpgrade(x - 16)), Permanence);
+    generalMaxAll(types.filter(x => x > 17).map(x => PermanenceUpgrade(x - 17)), Permanence);
   },
   maxUpgrades() {
     this.maxAll([10, 11, 12]);
