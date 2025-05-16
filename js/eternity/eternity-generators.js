@@ -67,7 +67,7 @@ let EternityGenerator = function (i) {
       }
     },
     perSecond() {
-      return (i < 8) ? EternityGenerator(i + 1).productionPerSecond() : new Decimal(0);
+      return (i < 9) ? EternityGenerator(i + 1).productionPerSecond() : new Decimal(0);
     },
     isVisible() {
       return i <= player.highestEternityGenerator + 1 || Options.actualViewAllGenerators('eternity');
@@ -115,7 +115,7 @@ let EternityGenerator = function (i) {
 }
 
 let EternityGenerators = {
-  list: [...Array(8)].map((_, i) => EternityGenerator(i + 1)),
+  list: [...Array(9)].map((_, i) => EternityGenerator(i + 1)),
   get: function (x) {
     return this.list[x - 1];
   },
