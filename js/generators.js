@@ -71,7 +71,7 @@ let Generator = function (i) {
       }
     },
     perSecond() {
-      return (i < 8) ? Generator(i + 1).productionPerSecond() : new Decimal(0);
+      return (i < 9) ? Generator(i + 1).productionPerSecond() : new Decimal(0);
     },
     isOutOfRange() {
       return Challenge.isChallengeEffectActive(6) && i > 6;
