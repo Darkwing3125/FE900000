@@ -4,21 +4,21 @@ let MaxAll = {
   },
   maxAll(types, singles) {
     if (types === undefined) {
-      types = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      types = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     }
     if (singles === undefined) {
       singles = [];
     }
     let bought = generalHighestSweep(() => Generators.highest(), types);
-    if (types.includes(9)) {
-      if (singles.includes(9)) {
+    if (types.includes(10)) {
+      if (singles.includes(10)) {
         Boost.buy();
       } else {
         Boost.buyMax();
       }
     }
-    let typesMultiple = types.filter(x => x <= 8 && !singles.includes(x));
-    let typesSingle = types.filter(x => x <= 8 && singles.includes(x) && !bought.includes(x));
+    let typesMultiple = types.filter(x => x <= 9 && !singles.includes(x));
+    let typesSingle = types.filter(x => x <= 9 && singles.includes(x) && !bought.includes(x));
     for (let i of typesSingle) {
       Generator(i).buy();
     }
