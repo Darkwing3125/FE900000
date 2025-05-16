@@ -52,7 +52,7 @@ let FinalityGenerator = function (i) {
       }
     },
     perSecond() {
-      return (i < 8) ? FinalityGenerator(i + 1).productionPerSecond() : new Decimal(0);
+      return (i < 9) ? FinalityGenerator(i + 1).productionPerSecond() : new Decimal(0);
     },
     isVisible() {
       return i <= player.highestFinalityGenerator + 1 || Options.actualViewAllGenerators('finality');
@@ -100,7 +100,7 @@ let FinalityGenerator = function (i) {
 }
 
 let FinalityGenerators = {
-  list: [...Array(8)].map((_, i) => FinalityGenerator(i + 1)),
+  list: [...Array(9)].map((_, i) => FinalityGenerator(i + 1)),
   get: function (x) {
     return this.list[x - 1];
   },
