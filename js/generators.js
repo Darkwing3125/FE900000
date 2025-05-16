@@ -141,7 +141,7 @@ let Generator = function (i) {
 }
 
 let Generators = {
-  list: [...Array(8)].map((_, i) => Generator(i + 1)),
+  list: [...Array(9)].map((_, i) => Generator(i + 1)),
   get: function (x) {
     return this.list[x - 1];
   },
