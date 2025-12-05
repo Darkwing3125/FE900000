@@ -4,27 +4,27 @@ let Autobuyer = function (i) {
   }
   return {
     hasAutobuyer() {
-      if (i === 13) {
+      if (i === 14) {
         return EternityMilestones.isEternityMilestoneActive(16);
-      } else if (i === 14) {
+      } else if (i === 15) {
         return ComplexityAchievements.isComplexityAchievementActive(1, 1) ||
         ComplexityAchievements.isComplexityAchievementActive(2, 2);
-      } else if (i === 15) {
-        return ComplexityAchievements.isAchievementsUnlockedRewardActive(4);
       } else if (i === 16) {
+        return ComplexityAchievements.isAchievementsUnlockedRewardActive(4);
+      } else if (i === 17) {
         return FinalityMilestones.isFinalityMilestoneActive(14);
-      } else if (i > 9) {
+      } else if (i > 10) {
         return Challenge.isChallengeCompleted(i);
       } else {
         return Challenge.isChallengeCompleted(i) || player.slowAutobuyers[i];
       }
     },
     isSlow() {
-      return i <= 9 && this.hasAutobuyer() && !Challenge.isChallengeCompleted(i);
+      return i <= 10 && this.hasAutobuyer() && !Challenge.isChallengeCompleted(i);
     },
     canUnlockSlow() {
       // As with boosts, we could use safeMinus here in theory, but the cost calculation should be as accurate as possible.
-      return i <= 9 && !this.hasAutobuyer() && player.stars.minus(this.unlockSlowCost()).gte(Stars.requiredUnspent());
+      return i <= 10 && !this.hasAutobuyer() && player.stars.minus(this.unlockSlowCost()).gte(Stars.requiredUnspent());
     },
     unlockSlow() {
       if (!this.canUnlockSlow()) return;
@@ -36,13 +36,13 @@ let Autobuyer = function (i) {
     },
     hasReachedDisplayThreshold() {
       return player.stats.totalStarsProduced.gte(this.unlockSlowCost().pow(0.875)) || i === 1 ||
-        (i === 9 ? SpecialDivs.isDivVisible('boosts') : (Generator(i).isVisible() || PrestigeLayerProgress.hasReached('sacrifice')));
+        (i === 10 ? SpecialDivs.isDivVisible('boosts') : (Generator(i).isVisible() || PrestigeLayerProgress.hasReached('sacrifice')));
     },
     isOn() {
       return player.autobuyers[i - 1].isOn;
     },
     hasGeneration() {
-      if (i < 12) {
+      if (i < 13) {
         return false;
       }
       return [
@@ -51,16 +51,16 @@ let Autobuyer = function (i) {
         Permanence.hasPassiveProduction(),
         ComplexityPrestigeLayer.hasComplexityPointGeneration(),
         false
-      ][i - 12];
+      ][i - 13];
     },
     hasNoCost() {
-      if (!(10 <= i && i <= 11)) {
+      if (!(11 <= i && i <= 12)) {
         return false;
       }
       return [
         EternityMilestones.isEternityMilestoneActive(6),
         EternityMilestones.isEternityMilestoneActive(8)
-      ][i - 10];
+      ][i - 11];
     },
     isActive() {
       // change to
@@ -69,20 +69,20 @@ let Autobuyer = function (i) {
       return this.hasAutobuyer() && this.isOn() && (this.hasGeneration() ? this.isOnDespiteSuspended() : true);
     },
     isOnDespiteSuspended() {
-      return 12 <= i && i <= 15 && player.options.autobuyers.isOnDespiteSuspended[i - 12];
+      return 13 <= i && i <= 16 && player.options.autobuyers.isOnDespiteSuspended[i - 13];
     },
     setIsOnDespiteSuspended(x) {
-      player.options.autobuyers.isOnDespiteSuspended[i - 12] = x;
+      player.options.autobuyers.isOnDespiteSuspended[i - 13] = x;
     },
     isHyperactive() {
-      return 10 <= i && i <= 11 && this.hasNoCost() && !this.useSettingsDespiteNoCost() &&
+      return 11 <= i && i <= 12 && this.hasNoCost() && !this.useSettingsDespiteNoCost() &&
       !(Challenge.isSomeChallengeRunning() || InfinityChallenge.isSomeInfinityChallengeRunning());
     },
     useSettingsDespiteNoCost() {
-      return 10 <= i && i <= 11 && player.options.autobuyers.useSettingsDespiteNoCost[i - 10];
+      return 11 <= i && i <= 12 && player.options.autobuyers.useSettingsDespiteNoCost[i - 11];
     },
     setUseSettingsDespiteNoCost(x) {
-      return player.options.autobuyers.useSettingsDespiteNoCost[i - 10] = x;
+      return player.options.autobuyers.useSettingsDespiteNoCost[i - 11] = x;
     },
     mode() {
       return player.autobuyers[i - 1].mode;
@@ -106,7 +106,7 @@ let Autobuyer = function (i) {
     },
     setMode(x) {
       player.autobuyers[i - 1].mode = x;
-      if ([10, 11, 12, 13, 14, 15].includes(i)) {
+      if ([11, 12, 13, 14, 15, 16].includes(i)) {
         NotationOptions.notationChangeAutobuyers([i]);
       }
     },
@@ -127,9 +127,9 @@ let Autobuyer = function (i) {
       }
     },
     target() {
-      if (i <= 8) {
+      if (i <= 9) {
         return Generator(i);
-      } else if (i === 9) {
+      } else if (i === 10) {
         return Boost;
       }
     },
@@ -207,7 +207,7 @@ let Autobuyers = {
   },
   anyNonGeneratorAndBoostDisplay() {
     // This is only used for showing the option to hide generator and boost autobuyers.
-    return this.list.slice(9).some(i => i.hasAutobuyer()) || PrestigeLayerProgress.hasReached('eternity');
+    return this.list.slice(10).some(i => i.hasAutobuyer()) || PrestigeLayerProgress.hasReached('eternity');
   },
   showGeneratorAndBoost() {
     return player.options.autobuyers.showGeneratorAndBoostAutobuyers;
@@ -221,7 +221,7 @@ let Autobuyers = {
   setAreNewlyUnlockedAutobuyersOn(x) {
     player.options.autobuyers.areNewlyUnlockedAutobuyersOn = x;
     // This actually changes which locked autobuyers are on, behind the scenes.
-    for (let i = 1; i <= 16; i++) {
+    for (let i = 1; i <= 17; i++) {
       let autobuyer = this.get(i);
       // Don't touch the complexity autobuyer.
       if (!autobuyer.hasAutobuyer() && !this.isLockedResetAutobuyer(i) && i !== 15) {
@@ -266,22 +266,22 @@ let Autobuyers = {
     }
   },
   isLockedResetAutobuyer(x) {
-    if (x < 12) return false;
-    let layer = ['infinity', 'eternity', 'complexity', 'complexity', 'finality'][x - 12];
+    if (x < 13) return false;
+    let layer = ['infinity', 'eternity', 'complexity', 'complexity', 'finality'][x - 13];
     return !Autobuyer(x).hasAutobuyer() && PrestigeLayerProgress.hasReached(layer);
   },
   anyLockedResetAutobuyers() {
-    return [12, 13, 14, 15, 16].some(x => this.isLockedResetAutobuyer(x));
+    return [13, 14, 15, 16, 17].some(x => this.isLockedResetAutobuyer(x));
   },
   sacrifice() {
-    if (!Autobuyer(10).isActive() || !Sacrifice.canSacrifice()) return;
-    if (Autobuyer(10).isHyperactive()) {
+    if (!Autobuyer(11).isActive() || !Sacrifice.canSacrifice()) return;
+    if (Autobuyer(11).isHyperactive()) {
       Sacrifice.sacrifice(false);
       return;
     }
     let shouldSacrifice;
-    let mode = Autobuyer(10).mode();
-    let priority = Autobuyer(10).priority();
+    let mode = Autobuyer(11).mode();
+    let priority = Autobuyer(11).priority();
     if (mode === 'Multiplier') {
       shouldSacrifice = Sacrifice.sacrificeMultiplierMultGain().gte(priority);
     } else if (mode === 'Time') {
@@ -295,14 +295,14 @@ let Autobuyers = {
     }
   },
   prestige() {
-    if (!Autobuyer(11).isActive() || !Prestige.canPrestige()) return;
-    if (Autobuyer(11).isHyperactive()) {
+    if (!Autobuyer(12).isActive() || !Prestige.canPrestige()) return;
+    if (Autobuyer(12).isHyperactive()) {
       Prestige.prestige(false);
       return;
     }
     let shouldPrestige;
-    let mode = Autobuyer(11).mode();
-    let priority = Autobuyer(11).priority();
+    let mode = Autobuyer(12).mode();
+    let priority = Autobuyer(12).priority();
     if (mode === 'Multiplier') {
       shouldPrestige = Prestige.prestigePowerMultGain().gte(priority);
     } else if (mode === 'Time') {
@@ -316,16 +316,16 @@ let Autobuyers = {
     }
   },
   infinity() {
-    if (Autobuyer(12).hasAutobuyer() && Autobuyers.automaticallyCompleteChallenges() &&
+    if (Autobuyer(13).hasAutobuyer() && Autobuyers.automaticallyCompleteChallenges() &&
     InfinityPrestigeLayer.canInfinity() &&
     (Challenge.isSomeChallengeRunning() || InfinityChallenge.isSomeInfinityChallengeRunning())) {
       InfinityPrestigeLayer.infinity(false, null);
       return;
     }
-    if (!Autobuyer(12).isActive() || !InfinityPrestigeLayer.canInfinity()) return;
+    if (!Autobuyer(13).isActive() || !InfinityPrestigeLayer.canInfinity()) return;
     let shouldInfinity;
-    let mode = Autobuyer(12).mode();
-    let priority = Autobuyer(12).priority();
+    let mode = Autobuyer(13).mode();
+    let priority = Autobuyer(13).priority();
     if (mode === 'Amount') {
       shouldInfinity = InfinityPrestigeLayer.infinityPointGain().gte(priority);
     } else if (mode === 'Time') {
@@ -359,7 +359,7 @@ let Autobuyers = {
     }
   },
   eternity() {
-    if (Autobuyer(13).hasAutobuyer() && Autobuyers.automaticallyCompleteChallenges() &&
+    if (Autobuyer(14).hasAutobuyer() && Autobuyers.automaticallyCompleteChallenges() &&
     EternityPrestigeLayer.canEternity() &&
     EternityChallenge.isSomeEternityChallengeRunning() && !EternityChallenge.isCurrentEternityChallengeCompleted()) {
       let ec = EternityChallenge.currentEternityChallenge();
@@ -373,10 +373,10 @@ let Autobuyers = {
         return;
       }
     }
-    if (!Autobuyer(13).isActive() || !EternityPrestigeLayer.canEternity()) return;
+    if (!Autobuyer(14).isActive() || !EternityPrestigeLayer.canEternity()) return;
     let shouldEternity;
-    let mode = Autobuyer(13).mode();
-    let priority = Autobuyer(13).priority();
+    let mode = Autobuyer(14).mode();
+    let priority = Autobuyer(14).priority();
     if (mode === 'Amount') {
       shouldEternity = EternityPrestigeLayer.eternityPointGain().gte(priority);
     } else if (mode === 'Time') {
@@ -419,10 +419,10 @@ let Autobuyers = {
     }
   },
   gainPermanence() {
-    if (!Autobuyer(14).isActive() || !Permanence.canGainPermanence()) return;
+    if (!Autobuyer(15).isActive() || !Permanence.canGainPermanence()) return;
     let shouldGainPermanence;
-    let mode = Autobuyer(14).mode();
-    let priority = Autobuyer(14).priority();
+    let mode = Autobuyer(15).mode();
+    let priority = Autobuyer(15).priority();
     if (mode === 'Amount') {
       shouldGainPermanence = Permanence.permanenceGain().gte(priority);
     } else if (mode === 'Time') {
@@ -435,10 +435,10 @@ let Autobuyers = {
     }
   },
   complexity() {
-    if (!Autobuyer(15).isActive() || !ComplexityPrestigeLayer.canComplexity()) return;
+    if (!Autobuyer(16).isActive() || !ComplexityPrestigeLayer.canComplexity()) return;
     let shouldComplexity;
-    let mode = Autobuyer(15).mode();
-    let priority = Autobuyer(15).priority();
+    let mode = Autobuyer(16).mode();
+    let priority = Autobuyer(16).priority();
     if (mode === 'Amount') {
       shouldComplexity = ComplexityPrestigeLayer.complexityPointGain().gte(priority);
     } else if (mode === 'Time') {
@@ -477,7 +477,7 @@ let Autobuyers = {
     }
   },
   finality() {
-    if (!Autobuyer(16).isActive() || !FinalityPrestigeLayer.canFinality()) return;
+    if (!Autobuyer(17).isActive() || !FinalityPrestigeLayer.canFinality()) return;
     FinalityPrestigeLayer.finality(false);
   },
   slowAutobuyersTimerLength() {
@@ -519,7 +519,7 @@ let Autobuyers = {
       Autobuyers.prestige();
       Autobuyers.sacrifice();
     }
-    let autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9].filter(x => Autobuyer(x).canTick(triggerSlowAutobuyers, triggerFastAutobuyers));
+    let autobuyers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].filter(x => Autobuyer(x).canTick(triggerSlowAutobuyers, triggerFastAutobuyers));
     let singles = autobuyers.filter(x => Autobuyer(x).mode() === 'Buy singles');
     MaxAll.maxAll(autobuyers, singles);
   }
