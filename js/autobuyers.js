@@ -477,7 +477,7 @@ let Autobuyers = {
     }
   },
   finality() {
-    if (!Autobuyer(17).isActive() || !FinalityPrestigeLayer.canFinality()) return;
+    if (!Autobuyer(16).isActive() || !FinalityPrestigeLayer.canFinality()) return;
     FinalityPrestigeLayer.finality(false);
   },
   slowAutobuyersTimerLength() {
